@@ -23,3 +23,12 @@ footer{
     text-align: center;
     margin-top: 20px;
 }
+
+.btnCart{
+    background-color: transparent;
+    border:none;
+}
+
+.fa-cart-shopping{
+    color: red;
+}

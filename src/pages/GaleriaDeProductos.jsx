@@ -4,15 +4,15 @@ import Footer from '../components/estaticos/Footer'
 import ProductList from '../components/ProductList'
 import loading from '../assets/loading.gif'
 
-const GaleriaDeProductos = ({productos, cargando}) => {
+const GaleriaDeProductos = ({ cart, productos, cargando, agregarCarrito , borrarProducto}) => {
   return (
     <>
-    <Header/>
+    <Header borrarProducto={borrarProducto} cartItems={cart}/>
       <h1> Galeria de Productos </h1>
-                  {
-              cargando ? <img src={loading} alt='loading'></img>:
-              <ProductList productos={productos}/>
-            }
+      {
+          cargando ? <img src={loading} alt='loading'></img>:
+          <ProductList agregarCarrito={agregarCarrito} productos={productos}/>
+      }
       <Footer/>
     </>
   )

@@ -4,10 +4,10 @@ import Footer from '../components/estaticos/Footer'
 import ProductList from '../components/ProductList'
 import loading from '../assets/loading.gif'
 
-const Home = ({productos, cargando}) => {
+const Home = ({cart, productos, cargando, agregarCarrito, borrarProducto }) => {
   return (
     <>
-    <Header/>
+    <Header borrarProducto={borrarProducto} cartItems={cart}/>
     <main>
          <h1> Bienvenidos a mi tienda </h1>
 
@@ -16,7 +16,7 @@ const Home = ({productos, cargando}) => {
             quibusdam eveniet similique at natus, dolor alias, ullam maxime ab iusto atque optio.</p>
             {
               cargando ? <img src={loading} alt='loading'></img>:
-              <ProductList productos={productos}/>
+              <ProductList agregarCarrito={agregarCarrito} productos={productos}/>
             }
     </main>
        

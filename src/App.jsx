@@ -10,10 +10,10 @@ import NotFound from './pages/NotFound'
 
 function App() {
 
-  const [cart, setCart] = useState([])
-  const [productos, setProductos] = useState([]) 
-  const [cargando, setCargando] = useState(true) 
-  const [error, setError] = useState(false) 
+ const [cart, setCart] = useState([])
+  const [productos, setProductos] = useState([])
+  const [cargando, setCargando] = useState(true)
+  const [error, setError] = useState(false)
 
   useEffect(()=>{
     fetch('/data/data.json')
@@ -22,27 +22,58 @@ function App() {
       setTimeout(()=>{
         setProductos(datos)
         setCargando(false)
-      }, 2000)
+      },2000)
     })
-    .catch(error => {
-      console.log('Error', error)
+    .catch(error =>{
+      console.log('Error',error)
       setCargando(false)
       setError(true)
     })
 
-
   },[])
 
+  const handleAddToCart = (product) => {
+
+    const productInCart = cart.find((item) => item.id === product.id);
+    if(productInCart){
+     
+      setCart(cart.map((item) => item.id === product.id ? {...item,quantity:item.quantity+1} : item));
+    }else{
+      setCart([...cart, {...product,quantity:1}]);
+    }
+  };
+
+  const handleDeleteFromCart = (product) => {
+    setCart(prevCart => {
+      return prevCart.map(item => {
+        if (item.id === product.id) {
+          if (item.quantity > 1) {
+            return { ...item, quantity: item.quantity - 1 };
+          } else {
+            return null;
+          }
+        } else {
+          return item; 
+        }
+      }).filter(item => item !== null);
+    });
+  };
+  
+  
 
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Home productos={productos} cargando ={ cargando} />}/>
-        <Route path='/acercade' element={<AcercaDe/>}/>
-        <Route path='/productos' element={<GaleriaDeProductos productos={productos} cargando ={ cargando} />}/>
-        <Route path='/contactos' element={<Contactos/>}/>
-        <Route path='*' element={<NotFound/>}/>
 
+        <Route path='/' element={<Home borrarProducto={handleDeleteFromCart} agregarCarrito={handleAddToCart} cart={cart} productos={productos} cargando={cargando}/>}/>
+
+        <Route path='/acercade' element={<AcercaDe borrarProducto={handleDeleteFromCart} cart={cart}/>}/>
+
+        <Route path='/productos' element={<GaleriaDeProductos borrarProducto={handleDeleteFromCart} agregarCarrito={handleAddToCart} cart={cart} productos={productos} cargando={cargando}/>}/>
+
+        <Route path='/contacto' element={<Contactos borrarProducto={handleDeleteFromCart} cart={cart}/>}/>
+
+        <Route path='*' element={<NotFound/>}/>
       </Routes>
     </Router>
   )
