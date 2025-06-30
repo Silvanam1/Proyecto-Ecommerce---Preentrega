@@ -4,7 +4,7 @@ import './styleEstatio.css'
 const Footer = () => {
   return (
     <footer>
-        <p>&copy; 2025 - Mi Tienda Online</p>
+        <p>&copy; 2025 - Tienda Online</p>
     </footer>
   )
 }

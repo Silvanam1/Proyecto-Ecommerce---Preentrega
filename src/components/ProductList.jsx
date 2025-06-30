@@ -1,21 +1,25 @@
-import React from 'react'
-import Productos from './Productos'
+import React, { useContext } from "react";
+import Productos from "./Productos";
+import { CartContext } from "../context/CartContext";
 
-const ProductList = ({productos, agregarCarrito}) => {
+const ProductList = () => {
+  const { productos } = useContext(CartContext);
+
   return (
     <>
-        <h2>Galeria de Productos </h2>
-        <div style={{display:'flex', flexWrap:'wrap', justifyContent:'space-evenly'}}>
-          {
-            productos.map(producto=>(
-              <Productos agregarCarrito={agregarCarrito} key={producto.id} producto={producto}/>
-            ))
-          } 
-
-        
-        </div>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-evenly",
+        }}
+      >
+        {productos.map((producto) => (
+          <Productos key={producto.id} producto={producto} />
+        ))}
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default ProductList
+export default ProductList;

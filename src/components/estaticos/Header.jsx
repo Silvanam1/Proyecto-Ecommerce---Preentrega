@@ -1,29 +1,78 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import './styleEstatio.css'
-import Cart from '../Cart'
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import "./styleEstatio.css";
+import Cart from "../Cart";
+import { FaShoppingCart } from "react-icons/fa";
 
-const Header = ({cartItems, borrarProducto}) => {
-
-const [isCartOpen, setCartOpen] = useState(false)
-
+const Header = () => {
+  const [isCartOpen, setCartOpen] = useState(false);
 
   return (
     <header>
-      <nav>
-        <ul>
-            <li><Link to='/' className='link'>Inicio</Link></li>
-            <li><Link to='/acercade' className='link'>Sobre nosotros</Link></li>
-            <li><Link to='/productos' className='link'>Galeria de productos</Link></li>
-            <li><Link to='/contacto' className='link'>Contacto</Link></li>
-            <li className='cartnav'>
-              <button className='btnCart' onClick={()=> setCartOpen(true)}><i className="fa-solid fa-cart-shopping"></i></button>
-              <Cart borrarProducto={borrarProducto} cartItems={cartItems} isOpen={isCartOpen} onClose={()=> setCartOpen(false)}/>
-            </li>
-        </ul>
+      <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div className="container-fluid">
+          <NavLink className="navbar-brand logo" to="/">
+            ElectroHogar Plus
+          </NavLink>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <NavLink className="link" to="/">
+                  Inicio
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="link" to="/acercade">
+                  Sobre nosotros
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="link" to="/productos">
+                  Galeria de productos
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="link" to="/contacto">
+                  Contacto
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <button
+                  className="btnCart link"
+                  onClick={() => setCartOpen(true)}
+                  style={{ background: "none", border: "none" }}
+                >
+                  <FaShoppingCart color="red" />
+                </button>
+                <Cart isOpen={isCartOpen} onClose={() => setCartOpen(false)} />
+              </li>
+              <li className="nav-item">
+                <NavLink className="link" to="/login">
+                  <i className="fa-solid fa-right-to-bracket"></i>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="link" to="/admin">
+                  <i className="fa-solid fa-user-tie"></i>
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
